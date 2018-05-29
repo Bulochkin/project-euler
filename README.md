@@ -1,3 +1,3 @@
-# project-euler
+# PROJECT_EULER PROBLEMS
 
-"Project Euler exists to encourage, challenge, and develop the skills and enjoyment of anyone with an interest in the fascinating world of mathematics."
+#"Project Euler exists to encourage, challenge, and develop the skills and enjoyment of anyone with an interest in the fascinating world of mathematics."
