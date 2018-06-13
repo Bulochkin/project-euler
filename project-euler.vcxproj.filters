@@ -99,5 +99,17 @@
     <ClCompile Include="1-100\3-30\24.cpp">
       <Filter>Source Files\1-100\21-30</Filter>
     </ClCompile>
+    <ClCompile Include="1-100\3-30\25.cpp">
+      <Filter>Source Files\1-100\21-30</Filter>
+    </ClCompile>
+    <ClCompile Include="1-100\3-30\26.cpp">
+      <Filter>Source Files\1-100\21-30</Filter>
+    </ClCompile>
+    <ClCompile Include="1-100\3-30\27.cpp">
+      <Filter>Source Files\1-100\21-30</Filter>
+    </ClCompile>
+    <ClCompile Include="1-100\3-30\28.cpp">
+      <Filter>Source Files\1-100\21-30</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
