@@ -123,5 +123,8 @@
     <ClCompile Include="1-100\21-30\30.cpp">
       <Filter>Source Files\1-100\21-30</Filter>
     </ClCompile>
+    <ClCompile Include="1-100\21-30\29.cpp">
+      <Filter>Source Files\1-100\21-30</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
