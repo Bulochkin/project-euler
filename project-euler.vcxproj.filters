@@ -25,6 +25,9 @@
     <Filter Include="Source Files\1-100\21-30">
       <UniqueIdentifier>{4b436fbc-f558-4fe6-b591-99d5a605944a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\1-100\31-40">
+      <UniqueIdentifier>{94533a08-e531-4b35-9dba-9b97e1ac39cc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="1-100\1-10\1.cpp">
@@ -110,6 +113,12 @@
     </ClCompile>
     <ClCompile Include="1-100\3-30\28.cpp">
       <Filter>Source Files\1-100\21-30</Filter>
+    </ClCompile>
+    <ClCompile Include="1-100\21-30\30.cpp">
+      <Filter>Source Files\1-100\21-30</Filter>
+    </ClCompile>
+    <ClCompile Include="1-100\31-40\31.cpp">
+      <Filter>Source Files\1-100\31-40</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
