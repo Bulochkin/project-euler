@@ -5,7 +5,7 @@
 
 void pandigital(int prod, int digs[], std::set<int>& alls)
 {
-    if (prod > 1000 && prod < 9999)
+    if (prod > 1234 && prod < 9876)
     {
         int temp = prod;
         std::set<int> divs;
