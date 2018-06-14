@@ -1,6 +1,5 @@
 #include <iostream>
 
-
 int main()
 {
     int total = 0;
