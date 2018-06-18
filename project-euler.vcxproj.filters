@@ -141,5 +141,8 @@
     <ClCompile Include="1-100\31-40\37.cpp">
       <Filter>Source Files\1-100\31-40</Filter>
     </ClCompile>
+    <ClCompile Include="1-100\31-40\38.cpp">
+      <Filter>Source Files\1-100\31-40</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
