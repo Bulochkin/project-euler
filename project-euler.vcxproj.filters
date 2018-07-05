@@ -28,6 +28,9 @@
     <Filter Include="Source Files\1-100\31-40">
       <UniqueIdentifier>{94533a08-e531-4b35-9dba-9b97e1ac39cc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\1-100\41-50">
+      <UniqueIdentifier>{12092bc2-caa0-4d17-8d57-9df26698ed40}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="1-100\1-10\1.cpp">
@@ -150,5 +153,19 @@
     <ClCompile Include="1-100\31-40\40.cpp">
       <Filter>Source Files\1-100\31-40</Filter>
     </ClCompile>
+    <ClCompile Include="1-100\41-50\41.cpp">
+      <Filter>Source Files\1-100\41-50</Filter>
+    </ClCompile>
+    <ClCompile Include="1-100\41-50\42.cpp">
+      <Filter>Source Files\1-100\41-50</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="p022_names.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="p042_words.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>
