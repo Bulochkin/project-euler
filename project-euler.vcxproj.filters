@@ -159,6 +159,9 @@
     <ClCompile Include="1-100\41-50\42.cpp">
       <Filter>Source Files\1-100\41-50</Filter>
     </ClCompile>
+    <ClCompile Include="1-100\41-50\43.cpp">
+      <Filter>Source Files\1-100\41-50</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="p022_names.txt">
