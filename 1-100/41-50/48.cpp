@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 #define MAX 100000
 
@@ -24,32 +25,52 @@ int multiply(int x, int res[], int res_size)
     return res_size;
 }
 
-void power(int x, int n) 
+void power(int x, int n, std::vector<int>& tens) 
 {
     int res[MAX];
-    int res_size = 0;
-    int temp = x;
+    int res_size = 0 , temp = x;
 
     // Initialize result
-    while (temp != 0) {
+    while (temp != 0) 
+    {
         res[res_size++] = temp % 10;
         temp = temp / 10;
     }
 
     // (x^n = x*x*x....n times) Multiply x n times
     for (int i = 2; i <= n; i++)
+    {
         res_size = multiply(x, res, res_size);
+    }
 
-    std::cout << x << "^" << n << " = ";
-    for (int i = res_size - 1; i >= 0; i--)
-        std::cout << res[i];
+    for (int i = std::min(10 - 1, res_size - 1); i >= 0; i--)
+    {
+        tens[i] += res[i];
+    }
 }
 
 int main() 
 {
-    int exponent = 25;
-    int base = 24;
-    power(base, exponent);
+    const int total = 1000;
+    std::vector<int> tens(10, 0);
+ 
+    for (auto i = 1; i != total; i++)
+    {
+        power(i, i, tens);
+    }
+
+    int carry = 0;
+    for (auto i = 0; i < 10; i++)
+    {
+        tens[i] += carry;
+        carry = tens[i] / 10;
+        tens[i] %= 10;
+    }
+
+    for (auto it = tens.rbegin() ; it != tens.rend() ; it++)
+    {
+        std::cout << *it;
+    }
 
     std::cout << std::endl;
     return 0;
