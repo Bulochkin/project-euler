@@ -9,9 +9,14 @@ bool is_greater(int start, int center)
     for (float i = 0; i < total; i++)
     {
         sum *= ((start - i) / (total - i));
+
+        if (sum > BORDER)
+        {
+            return true;
+        }
     }
 
-    return sum > BORDER;
+    return false;
 }
 
 int main()

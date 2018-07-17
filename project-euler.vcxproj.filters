@@ -195,12 +195,18 @@
     <ClCompile Include="1-100\51-60\53.cpp">
       <Filter>Source Files\1-100\51-60</Filter>
     </ClCompile>
+    <ClCompile Include="1-100\51-60\54.cpp">
+      <Filter>Source Files\1-100\51-60</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="p022_names.txt">
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="p042_words.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="p054_poker.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
