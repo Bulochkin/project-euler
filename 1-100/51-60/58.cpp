@@ -2,21 +2,21 @@
 #include <vector>
 #include <algorithm>
 
-void sieve_eratosthene(const int n, std::vector<int>& primes)
+void sieve_eratosthene(const long long n, std::vector<long long>& primes)
 {
     std::vector<bool> prime(n + 1);
     std::fill(prime.begin(), prime.end(), 1);
 
-    for (int p = 2; p*p <= n; p++)
+    for (long long p = 2; p*p <= n; p++)
     {
         if (prime[p] == true)	// If prime[p] is not changed, then it is a prime
         {
-            for (int i = p * 2; i <= n; i += p)	// Update all multiples of p
+            for (long long i = p * 2; i <= n; i += p)	// Update all multiples of p
                 prime[i] = false;
         }
     }
 
-    for (int p = 3; p <= n; p ++)
+    for (long long p = 3; p <= n; p ++)
     {
         if (prime[p])
         {
@@ -27,15 +27,12 @@ void sieve_eratosthene(const int n, std::vector<int>& primes)
 
 int main()
 {
-    const int total = 15000;
-    std::vector<int> primes;
+    const long long total = 900000000;
+    std::vector<long long> primes;
     
-    int i = 0;
-    sieve_eratosthene(total, primes);
-
-    int aaa = 5;
     float count = 0;
-    for (int shift = 2, start = 1; i < total / 2; i++, shift += 2)
+    sieve_eratosthene(total, primes);
+    for (long long i = 0, shift = 2, start = 1; i < total; i++, shift += 2)
     {
         start += shift;
         if (std::binary_search(primes.begin(), primes.end(), start))
@@ -61,14 +58,12 @@ int main()
             count++;
         }
 
-        float diff = count / aaa;
+        float diff = count / ((i + 1) * 4 + 1);
         if (diff < 0.1f)
         {
-            std::cout << i * 2 + 1<< " | diff = " << diff << std::endl;
-            break;
+            std::cout << std::sqrt(start) << " | diff = " << diff << std::endl;
+            return 0;
         }
-
-        aaa += 4;
     }
 
     return 0;
