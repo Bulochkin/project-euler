@@ -62,18 +62,20 @@ bool validate_sequence(const std::vector<int>* const nums, std::vector<int> digi
         return digits.size() == 0;
     }
 
-    bool is_ok = false;
     for (auto digit : digits)
     {
         if (std::binary_search(nums[index].begin(), nums[index].end(), digit))
         {
             auto erased(digits);
             erased.erase(std::remove(erased.begin(), erased.end(), digit), erased.end());
-            is_ok = validate_sequence(nums, erased, index + 1);
+            if (validate_sequence(nums, erased, index + 1))
+            {
+                return true;
+            }
         }
     }
 
-    return is_ok;
+    return false;
 }
 
 int main()
