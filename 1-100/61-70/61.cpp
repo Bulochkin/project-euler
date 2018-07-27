@@ -55,6 +55,27 @@ void find_recursive(std::vector<std::pair<int, bool>> alls, std::vector<int> sec
     }
 }
 
+bool validate_sequence(const std::vector<int>* const nums, std::vector<int> digits, int index)
+{
+    if (index == TOTAL)
+    {
+        return digits.size() == 0;
+    }
+
+    bool is_ok = false;
+    for (auto digit : digits)
+    {
+        if (std::binary_search(nums[index].begin(), nums[index].end(), digit))
+        {
+            auto erased(digits);
+            erased.erase(std::remove(erased.begin(), erased.end(), digit), erased.end());
+            is_ok = validate_sequence(nums, erased, index + 1);
+        }
+    }
+
+    return is_ok;
+}
+
 int main()
 {
     std::vector<int> nums[TOTAL];
@@ -85,53 +106,17 @@ int main()
     std::sort(globals.begin(), globals.end());
     globals.erase(std::unique(globals.begin(), globals.end()), globals.end());
 
-    decltype(globals) globalsNew;
     for (const auto& one : globals)
     {
-        int total = 0;
-        std::set<int> ids;
-        std::vector<std::pair<int, int>> idsAll;
-        for (const auto dgt : one)
+        if (validate_sequence(nums, one, 0))
         {
-            bool used = false;
-            for (int i = 0; i < TOTAL; i++)
-            {
-                if (std::binary_search(nums[i].begin(), nums[i].end(), dgt))
-                {
-                    used = true;
-                    ids.emplace(i);
-                    idsAll.emplace_back(dgt, i);
-                }
-            }
-
-            if (used)
-            {
-                total++;
-            }
-        }
-
-        if (total == TOTAL && ids.size() == TOTAL)
-        {
-            globalsNew.emplace_back(std::move(one));
-            static int i = 1;
-            std::cout << i++ << " | sum = " << std::accumulate(one.begin(), one.end(), 0) << " | ";
+            std::cout << "sum = " << std::accumulate(one.begin(), one.end(), 0) << " -> ";
             for (auto digit : one)
             {
                 std::cout << digit << " ";
             }
             std::cout << std::endl;
-            for (auto id : idsAll)
-            {
-                std::cout << "(" << id.first << "," << id.second << ") ";
-            }
-            std::cout << std::endl;
-            std::cout << std::endl;
         }
-    }
-
-    for (auto one : globalsNew)
-    {
-
     }
 
     return 0;
