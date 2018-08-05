@@ -228,6 +228,18 @@
     <ClCompile Include="1-100\61-70\63.cpp">
       <Filter>Source Files\1-100\61-70</Filter>
     </ClCompile>
+    <ClCompile Include="1-100\61-70\67.cpp">
+      <Filter>Source Files\1-100\61-70</Filter>
+    </ClCompile>
+    <ClCompile Include="1-100\61-70\69.cpp">
+      <Filter>Source Files\1-100\61-70</Filter>
+    </ClCompile>
+    <ClCompile Include="1-100\61-70\70.cpp">
+      <Filter>Source Files\1-100\61-70</Filter>
+    </ClCompile>
+    <ClCompile Include="1-100\61-70\68.cpp">
+      <Filter>Source Files\1-100\61-70</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="p022_names.txt">
@@ -240,6 +252,9 @@
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="p059_cipher.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="p067_triangle.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
