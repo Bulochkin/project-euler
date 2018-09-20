@@ -261,6 +261,9 @@
     <ClCompile Include="1-100\71-80\78.cpp">
       <Filter>Source Files\1-100\71-80</Filter>
     </ClCompile>
+    <ClCompile Include="1-100\71-80\79.cpp">
+      <Filter>Source Files\1-100\71-80</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="p022_names.txt">
@@ -276,6 +279,9 @@
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="p067_triangle.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="p079_keylog.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
