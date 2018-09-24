@@ -2,7 +2,9 @@
 #include <vector>
 
 #define FRACTIONS_BORDER 10000
-// https://stackoverflow.com/questions/12182701/generating-continued-fractions-for-square-roots
+
+//  https://en.wikipedia.org/wiki/Methods_of_computing_square_roots#Continued_fraction_expansion
+//  https://stackoverflow.com/questions/12182701/generating-continued-fractions-for-square-roots
 
 std::vector<unsigned long> sqrtCF(unsigned long D) 
 {
