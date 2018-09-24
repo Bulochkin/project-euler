@@ -1,59 +1,47 @@
 #include <iostream>
 #include <vector>
 
-#define FRACTIONS_BORDER 100
+#define FRACTIONS_BORDER 10000
+// https://stackoverflow.com/questions/12182701/generating-continued-fractions-for-square-roots
 
-struct fraction
+std::vector<unsigned long> sqrtCF(unsigned long D) 
 {
-    int up;
-    int down;
-};
+    // sqrt(D) may be slightly off for large D.
+    // If large D are expected, a correction for R is needed.
 
-void go(int num, fraction fr, std::vector<fraction>& seqs)
-{
-    for (auto& it = seqs.begin(); it != seqs.end(); it++)
+    unsigned long R = (unsigned long)floor(sqrt(D));
+    std::vector<unsigned long> f;
+    
+    if (R*R == D) 
     {
-        if (it->up == fr.up && (fr.down == 1 || it->down == fr.down))
-        {
-            //  ToDo - process fr.down
-            return;
-        }
+        return f;   // Oops, a square
     }
 
-    seqs.push_back(fr);
-
-    int base = ((int)std::sqrt(num) + fr.up) / fr.down;
-    int up = base * fr.down - fr.up;
-    int down = num - up * up;
-
-    if (down % fr.down != 0)
+    unsigned long a = R, P = 0, Q = 1;
+    do 
     {
-        std::cout << "!!!!!!!!!!" << std::endl;
-    }
+        P = a * Q - P;
+        Q = (D - P * P) / Q;
+        a = (R + P) / Q;
+        f.push_back(a);
+    } 
+    while (Q != 1);
 
-    down /= fr.down;
-
-    fraction fr2 = { up , down };
-    go(num, fr2, seqs);
+    return f;
 }
 
 int main()
 {
-    std::vector<std::pair<int, std::vector<fraction>>> all;
-    for (int i = 14; i <= FRACTIONS_BORDER; i++)
+    int total = 0;
+    for (int i = 2; i <= FRACTIONS_BORDER; i++)
     {
-        int sqr = (int)std::sqrt(i);
-        if (sqr * sqr == i)
+        const auto&& root = sqrtCF(i);
+        if (root.size() % 2)
         {
-            continue;
+            total++;
         }
-
-        std::vector<fraction> one;
-        fraction fr = { sqr, i - sqr * sqr };
-
-        go(i, fr, one);
-        all.emplace_back(i, one);
     }
 
+    std::cout << total << std::endl;
     return 0;
 }
