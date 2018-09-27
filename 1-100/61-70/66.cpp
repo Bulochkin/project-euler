@@ -63,7 +63,6 @@ int main()
                 dnMax = d;
             }
         }
-
     }
 
     std::cout << "D = " << dnMax << " , X = " << pnMax << std::endl;
