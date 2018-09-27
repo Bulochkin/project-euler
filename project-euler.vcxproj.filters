@@ -40,6 +40,12 @@
     <Filter Include="Source Files\1-100\71-80">
       <UniqueIdentifier>{61b78826-2751-48e7-aed3-b4f53aa53206}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\1-100\81-90">
+      <UniqueIdentifier>{bbf8964f-0211-4862-b97d-5493dc5cba64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\1-100\91-100">
+      <UniqueIdentifier>{461e786b-9903-4606-a2a2-2360a8827c93}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="1-100\1-10\1.cpp">
