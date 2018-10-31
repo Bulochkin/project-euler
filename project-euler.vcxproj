@@ -445,6 +445,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="1-100\91-100\96\96.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="p022_names.txt" />
@@ -454,6 +455,10 @@
     <Text Include="p067_triangle.txt" />
     <Text Include="p079_keylog.txt" />
     <Text Include="p081_matrix.txt" />
+    <Text Include="p096_sudoku.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="1-100\91-100\96\96.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

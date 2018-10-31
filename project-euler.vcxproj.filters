@@ -46,6 +46,9 @@
     <Filter Include="Source Files\1-100\91-100">
       <UniqueIdentifier>{461e786b-9903-4606-a2a2-2360a8827c93}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\1-100\91-100\96">
+      <UniqueIdentifier>{88feb1da-0686-438a-b26c-6de6169b1d86}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="1-100\1-10\1.cpp">
@@ -291,6 +294,9 @@
     <ClCompile Include="1-100\81-90\81.cpp">
       <Filter>Source Files\1-100\81-90</Filter>
     </ClCompile>
+    <ClCompile Include="1-100\91-100\96\96.cpp">
+      <Filter>Source Files\1-100\91-100\96</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="p022_names.txt">
@@ -314,5 +320,13 @@
     <Text Include="p081_matrix.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="p096_sudoku.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="1-100\91-100\96\96.h">
+      <Filter>Source Files\1-100\91-100\96</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
