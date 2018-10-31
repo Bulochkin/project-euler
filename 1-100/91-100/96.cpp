@@ -8,13 +8,13 @@
 #include <windows.h>
 #define GRID_SIZE 9
 
+////////////////////////////////////////////////////////////////////////////////
+
 struct item
 {
     int x, y, num = 0;
     std::vector<int> cd = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 };
-
-bool processGrid(std::vector<std::vector<int>>& grid, std::vector<std::vector<item>>& items, int loop, bool deep = true);
 
 std::vector<std::vector<int>> readGrid(std::ifstream& ifs)
 {
@@ -58,7 +58,9 @@ std::vector<std::vector<item>> buildItems(const std::vector<std::vector<int>>& g
     return items;
 }
 
-void processGrid_Step_1(std::vector<std::vector<item>>& items)
+////////////////////////////////////////////////////////////////////////////////
+
+void processGrid_Strategy_1(std::vector<std::vector<item>>& items)
 {
     for (int i = 0; i < GRID_SIZE; i++)
     {
@@ -102,7 +104,7 @@ void processGrid_Step_1(std::vector<std::vector<item>>& items)
     }
 }
 
-void processGrid_Step_2(std::vector<std::vector<item>>& items)
+void processGrid_Strategy_2(std::vector<std::vector<item>>& items)
 {
     for (int i = 0; i < GRID_SIZE; i++)
     {
@@ -289,6 +291,8 @@ void showGrid(const std::vector<std::vector<int>>& grid)
     }
 }
 
+bool processGrid(std::vector<std::vector<int>>& grid, std::vector<std::vector<item>>& items, int loop);
+
 bool predictGrid(std::vector<std::vector<int>>& grid, const std::vector<std::vector<item>>& items, int loop, int size)
 {
     for (int i = 0; i < GRID_SIZE; i++)
@@ -316,10 +320,10 @@ bool predictGrid(std::vector<std::vector<int>>& grid, const std::vector<std::vec
     return false;
 }
 
-bool processGrid(std::vector<std::vector<int>>& grid, std::vector<std::vector<item>>& items, int loop, bool deep)
+bool processGrid(std::vector<std::vector<int>>& grid, std::vector<std::vector<item>>& items, int loop)
 {
-    processGrid_Step_1(items);
-    processGrid_Step_2(items);
+    processGrid_Strategy_1(items);
+    processGrid_Strategy_2(items);
 
     int total = 0;
     for (int i = 0; i < GRID_SIZE; i++)
@@ -355,7 +359,7 @@ bool processGrid(std::vector<std::vector<int>>& grid, std::vector<std::vector<it
         return processGrid(grid, items, ++loop);
     }
 
-    if (validateGrid(grid) && validateGridUnique(grid))
+    if (validateGrid(grid))
     {
         return true;
     }
