@@ -114,8 +114,11 @@ bool predictGrid(const std::vector<std::vector<int>>& grid, const std::vector<st
                     auto copyGrid = grid;
                     auto copyItems = items;
 
-                    copyGrid[i][j] = copyItems[i][j].cd[k];
-                    copyItems[i][j].num = copyItems[i][j].cd[k];
+                    copyItems[i][j].num = items[i][j].cd[k];
+                    copyGrid[i][j] = items[i][j].cd[k];
+
+                    //copyItems[i][j].cd.clear();
+                    //copyItems[i][j].cd = { items[i][j].cd[k] };
 
                     auto it = std::remove(copyItems[i][j].cd.begin(), copyItems[i][j].cd.end(), copyGrid[i][j]);
                     copyItems[i][j].cd.erase(it, copyItems[i][j].cd.end());
@@ -133,15 +136,20 @@ bool predictGrid(const std::vector<std::vector<int>>& grid, const std::vector<st
 
 bool processGrid(std::vector<std::vector<int>>& grid, std::vector<std::vector<item>>& items, int loop, bool deep)
 {
-    processGrid_Step_1(grid, items);
-    processGrid_Step_2(grid, items);
-    processGrid_Step_3(grid, items);
+    processGrid_Step_1(items);
+    processGrid_Step_2(items);
+    processGrid_Step_3(items);
 
     int total = 0;
     for (int i = 0; i < GRID_SIZE; i++)
     {
         for (int j = 0; j < GRID_SIZE; j++)
         {
+            if (items[i][j].num == 0 && items[i][j].cd.size() == 0)
+            {
+                return false;
+            }
+
             if (items[i][j].cd.size() == 1)
             {
                 grid[i][j] = items[i][j].cd[0];
@@ -152,7 +160,7 @@ bool processGrid(std::vector<std::vector<int>>& grid, std::vector<std::vector<it
             }
         }
     }
-
+    
     if (!validateGridUnique(grid))
     {
         std::cout << "<<< STRATEGY UNIQUE VALIDATION FAILED >>>" << std::endl;
@@ -176,10 +184,17 @@ bool processGrid(std::vector<std::vector<int>>& grid, std::vector<std::vector<it
     {
         for (int j = 0; j < GRID_SIZE; j++)
         {
-            if (grid[i][j] == 0)
+            //if (grid[i][j] == 0)
+            if (items[i][j].num == 0)
             {
                 int size = (int)items[i][j].cd.size();
-                if (size < min)
+                if (size == 0)
+                {
+                    return false;
+                    //continue;
+                }
+
+                if (size < min && size != 0)
                 {
                     min = size;
                 }
@@ -187,7 +202,8 @@ bool processGrid(std::vector<std::vector<int>>& grid, std::vector<std::vector<it
         }
     }
 
-    return predictGrid(grid, items, loop, min);
+    std::cout << "---- PREDICTION via " << min << " ----" << std::endl;
+    return predictGrid(grid, items, loop - 1, min);
     //return false;
 }
 
@@ -205,7 +221,7 @@ int main()
     }
 
     int id;
-    std::vector<int> failed = {  };
+    std::vector<int> failed = { };
     for (id = 1; ifs.good(); id++)
     {
         std::string title = "Sudoku #" + std::to_string(id);

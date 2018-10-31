@@ -44,14 +44,14 @@ namespace euler_96
                 if (grid[i][j] != 0)
                 {
                     items[i][j].num = grid[i][j];
-                    continue;
+                    //items[i][j].cd.clear();
                 }
             }
         }
         return items;
     }
 
-    void processGrid_Step_1(std::vector<std::vector<int>>& grid, std::vector<std::vector<item>>& items)
+    void processGrid_Step_1(std::vector<std::vector<item>>& items)
     {
         for (int i = 0; i < GRID_SIZE; i++)
         {
@@ -59,18 +59,18 @@ namespace euler_96
             {
                 for (int r = 0; r < GRID_SIZE; r++)
                 {
-                    if (grid[i][r] != 0 && r != j)
+                    if (items[i][r].num != 0 && r != j)
                     {
-                        auto it = std::remove(items[i][j].cd.begin(), items[i][j].cd.end(), grid[i][r]);
+                        auto it = std::remove(items[i][j].cd.begin(), items[i][j].cd.end(), items[i][r].num);
                         items[i][j].cd.erase(it, items[i][j].cd.end());
                     }
                 }
 
                 for (int c = 0; c < GRID_SIZE; c++)
                 {
-                    if (grid[c][j] != 0 && c != i)
+                    if (items[c][j].num != 0 && c != i)
                     {
-                        auto it = std::remove(items[i][j].cd.begin(), items[i][j].cd.end(), grid[c][j]);
+                        auto it = std::remove(items[i][j].cd.begin(), items[i][j].cd.end(), items[c][j].num);
                         items[i][j].cd.erase(it, items[i][j].cd.end());
                     }
                 }
@@ -79,9 +79,9 @@ namespace euler_96
                 {
                     for (int js = 3 * (j / 3); js < 3 * (j / 3) + 3; js++)
                     {
-                        if (is != i && js != j && grid[is][js] != 0)
+                        if (is != i && js != j && items[is][js].num != 0)
                         {
-                            auto it = std::remove(items[i][j].cd.begin(), items[i][j].cd.end(), grid[is][js]);
+                            auto it = std::remove(items[i][j].cd.begin(), items[i][j].cd.end(), items[is][js].num);
                             items[i][j].cd.erase(it, items[i][j].cd.end());
                         }
                     }
@@ -90,7 +90,7 @@ namespace euler_96
         }
     }
 
-    void processGrid_Step_2(std::vector<std::vector<int>>& grid, std::vector<std::vector<item>>& items)
+    void processGrid_Step_2(std::vector<std::vector<item>>& items)
     {
         for (int i = 0; i < GRID_SIZE; i++)
         {
@@ -187,7 +187,7 @@ namespace euler_96
         }
     }
 
-    void processGrid_Step_3(std::vector<std::vector<int>>& grid, std::vector<std::vector<item>>& items)
+    void processGrid_Step_3(std::vector<std::vector<item>>& items)
     {
         for (int i = 0; i < GRID_SIZE; i++)
         {
