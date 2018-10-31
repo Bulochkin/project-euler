@@ -294,6 +294,12 @@
     <ClCompile Include="1-100\91-100\96.cpp">
       <Filter>Source Files\1-100\91-100</Filter>
     </ClCompile>
+    <ClCompile Include="1-100\91-100\92.cpp">
+      <Filter>Source Files\1-100\91-100</Filter>
+    </ClCompile>
+    <ClCompile Include="1-100\91-100\95.cpp">
+      <Filter>Source Files\1-100\91-100</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="p022_names.txt">
