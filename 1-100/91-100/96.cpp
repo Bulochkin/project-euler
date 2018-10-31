@@ -1,4 +1,3 @@
-#include <iostream>
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -13,7 +12,7 @@
 struct item
 {
     int x, y, num = 0;
-    std::vector<int> cd = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    std::vector<int> cd;
 };
 
 std::vector<std::vector<int>> readGrid(std::ifstream& ifs)
@@ -51,7 +50,10 @@ std::vector<std::vector<item>> buildItems(const std::vector<std::vector<int>>& g
             if (grid[i][j] != 0)
             {
                 items[i][j].num = grid[i][j];
-                items[i][j].cd.clear();
+            }
+            else
+            {
+                items[i][j].cd = { 1 , 2 , 3 , 4 , 5 , 6 , 7 , 8 , 9 };
             }
         }
     }
@@ -71,35 +73,32 @@ void processGrid_Strategy_1(std::vector<std::vector<item>>& items)
                 continue;
             }
 
+            auto it = items[i][j].cd.end();
             for (int r = 0; r < GRID_SIZE; r++)
             {
                 if (items[i][r].num != 0)
                 {
-                    auto it = std::remove(items[i][j].cd.begin(), items[i][j].cd.end(), items[i][r].num);
-                    items[i][j].cd.erase(it, items[i][j].cd.end());
+                    it = std::remove(items[i][j].cd.begin(),it, items[i][r].num);
                 }
-            }
 
-            for (int c = 0; c < GRID_SIZE; c++)
-            {
-                if (items[c][j].num != 0)
+                if (items[r][j].num != 0)
                 {
-                    auto it = std::remove(items[i][j].cd.begin(), items[i][j].cd.end(), items[c][j].num);
-                    items[i][j].cd.erase(it, items[i][j].cd.end());
+                    it = std::remove(items[i][j].cd.begin(), it, items[r][j].num);
                 }
             }
-
+            
             for (int is = 3 * (i / 3); is < 3 * (i / 3) + 3; is++)
             {
                 for (int js = 3 * (j / 3); js < 3 * (j / 3) + 3; js++)
                 {
                     if (items[is][js].num != 0)
                     {
-                        auto it = std::remove(items[i][j].cd.begin(), items[i][j].cd.end(), items[is][js].num);
-                        items[i][j].cd.erase(it, items[i][j].cd.end());
+                        it = std::remove(items[i][j].cd.begin(), it, items[is][js].num);
                     }
                 }
             }
+
+            items[i][j].cd.erase(it, items[i][j].cd.end());
         }
     }
 }
@@ -115,23 +114,28 @@ void processGrid_Strategy_2(std::vector<std::vector<item>>& items)
                 continue;
             }
 
-            std::vector<int> indexes;
             const auto& toSearch = items[i][j].cd;
 
+            std::vector<int> indexes1, indexes2;
             for (int k = 0; k < GRID_SIZE; k++)
             {
                 if (items[i][k].num == 0 && toSearch == items[i][k].cd)
                 {
-                    indexes.emplace_back(k);
+                    indexes1.emplace_back(k);
+                }
+
+                if (items[k][j].num == 0 && toSearch == items[k][j].cd)
+                {
+                    indexes2.emplace_back(k);
                 }
             }
 
-            if (indexes.size() > 1 && indexes.size() == toSearch.size())
+            if (indexes1.size() > 1 && indexes1.size() == toSearch.size())
             {
                 for (int k = 0; k < GRID_SIZE; k++)
                 {
-                    auto pos = std::find(indexes.begin(), indexes.end(), k);
-                    if (pos == indexes.end())
+                    auto pos = std::find(indexes1.begin(), indexes1.end(), k);
+                    if (pos == indexes1.end())
                     {
                         for (auto to : toSearch)
                         {
@@ -142,21 +146,12 @@ void processGrid_Strategy_2(std::vector<std::vector<item>>& items)
                 }
             }
 
-            indexes.clear();
-            for (int k = 0; k < GRID_SIZE; k++)
-            {
-                if (items[k][j].num == 0 && toSearch == items[k][j].cd)
-                {
-                    indexes.emplace_back(k);
-                }
-            }
-
-            if (indexes.size() > 1 && indexes.size() == toSearch.size())
+            if (indexes2.size() > 1 && indexes2.size() == toSearch.size())
             {
                 for (int k = 0; k < GRID_SIZE; k++)
                 {
-                    auto pos = std::find(indexes.begin(), indexes.end(), k);
-                    if (pos == indexes.end())
+                    auto pos = std::find(indexes2.begin(), indexes2.end(), k);
+                    if (pos == indexes2.end())
                     {
                         for (auto to : toSearch)
                         {
@@ -167,26 +162,26 @@ void processGrid_Strategy_2(std::vector<std::vector<item>>& items)
                 }
             }
 
-            std::vector<std::pair<int, int>> indexes2;
+            std::vector<std::pair<int, int>> indexes3;
             for (int is = 3 * (i / 3); is < 3 * (i / 3) + 3; is++)
             {
                 for (int js = 3 * (j / 3); js < 3 * (j / 3) + 3; js++)
                 {
                     if (items[is][js].num == 0 && toSearch == items[is][js].cd)
                     {
-                        indexes2.emplace_back(std::make_pair(is, js));
+                        indexes3.emplace_back(std::make_pair(is, js));
                     }
                 }
             }
 
-            if (indexes2.size() > 1 && indexes2.size() == toSearch.size())
+            if (indexes3.size() > 1 && indexes3.size() == toSearch.size())
             {
                 for (int is = 3 * (i / 3); is < 3 * (i / 3) + 3; is++)
                 {
                     for (int js = 3 * (j / 3); js < 3 * (j / 3) + 3; js++)
                     {
-                        auto pos = std::find(indexes2.begin(), indexes2.end(), std::make_pair(is, js));
-                        if (pos == indexes2.end())
+                        auto pos = std::find(indexes3.begin(), indexes3.end(), std::make_pair(is, js));
+                        if (pos == indexes3.end())
                         {
                             for (auto to : toSearch)
                             {
@@ -220,32 +215,11 @@ bool validateGrid(const std::vector<std::vector<int>>& grid)
         }
     }
 
-    for (int i = 0; i < GRID_SIZE; i += 3)
-    {
-        for (int j = 0; j < GRID_SIZE; j += 3)
-        {
-            int sum = 0;
-            for (int k = i; k < i + 3; k++)
-            {
-                for (int l = j; l < j + 3; l++)
-                {
-                    sum += grid[k][l];
-                }
-            }
-
-            if (sum != 45)
-            {
-                std::cout << "!!! FAILED VALIDATION SQUARE !!!" << std::endl;
-                return false;
-            }
-        }
-    }
-
     std::cout << "!!! SUCCEED VALIDATION !!!" << std::endl;
     return true;
 }
 
-bool validateGridUnique(const std::vector<std::vector<int>>& grid)
+bool validateGridUniqueNumbers(const std::vector<std::vector<int>>& grid)
 {
     for (int i = 0; i < GRID_SIZE; i++)
     {
@@ -291,62 +265,45 @@ void showGrid(const std::vector<std::vector<int>>& grid)
     }
 }
 
-bool processGrid(std::vector<std::vector<int>>& grid, std::vector<std::vector<item>>& items, int loop);
-
-bool predictGrid(std::vector<std::vector<int>>& grid, const std::vector<std::vector<item>>& items, int loop, int size)
-{
-    for (int i = 0; i < GRID_SIZE; i++)
-    {
-        for (int j = 0; j < GRID_SIZE; j++)
-        {
-            if (items[i][j].cd.size() == size)
-            {
-                auto copyGrid = grid;
-                for (int k = 0; k < size; k++)
-                {
-                    copyGrid[i][j] = items[i][j].cd[k];
-                    auto itemsNew = buildItems(grid);
-
-                    if (processGrid(copyGrid, itemsNew, loop + 1))
-                    {
-                        grid = copyGrid;
-                        return true;
-                    }
-                }
-                return false;
-            }
-        }
-    }
-    return false;
-}
-
 bool processGrid(std::vector<std::vector<int>>& grid, std::vector<std::vector<item>>& items, int loop)
 {
     processGrid_Strategy_1(items);
     processGrid_Strategy_2(items);
 
-    int total = 0;
+    int total = 0, minGo = 9, iGo = -1, jGo = -1;
     for (int i = 0; i < GRID_SIZE; i++)
     {
         for (int j = 0; j < GRID_SIZE; j++)
         {
-            if (items[i][j].num == 0 && items[i][j].cd.size() == 0)
+            if (grid[i][j] == 0)
             {
-                return false;
-            }
+                int size = (int)items[i][j].cd.size();
 
-            if (items[i][j].cd.size() == 1 && grid[i][j] == 0)
-            {
-                grid[i][j] = items[i][j].cd[0];
-                items[i][j].num = items[i][j].cd[0];
+                if (size == 0)
+                {
+                    return false;
+                }
+                else if (size == 1)
+                {
+                    grid[i][j] = items[i][j].cd[0];
+                    items[i][j].num = items[i][j].cd[0];
 
-                total++;
-                items[i][j].cd.clear();
+                    total++;
+                    items[i][j].cd.clear();
+                }
+                else
+                {
+                    if (size < minGo)
+                    {
+                        minGo = size;
+                        iGo = i; jGo = j;
+                    }
+                }
             }
         }
     }
     
-    if (!validateGridUnique(grid))
+    if (!validateGridUniqueNumbers(grid))
     {
         std::cout << "<<< STRATEGY UNIQUE VALIDATION FAILED >>>" << std::endl;
         return false;
@@ -364,29 +321,24 @@ bool processGrid(std::vector<std::vector<int>>& grid, std::vector<std::vector<it
         return true;
     }
 
-    int minGo = 9;
-    for (int i = 0; i < GRID_SIZE; i++)
+    auto copyGrid = grid;
+    for (int k = 0; k < minGo; k++)
     {
-        for (int j = 0; j < GRID_SIZE; j++)
+        copyGrid[iGo][jGo] = items[iGo][jGo].cd[k];
+        auto itemsNew = buildItems(grid);
+    
+        if (processGrid(copyGrid, itemsNew, ++loop))
         {
-            if (grid[i][j] == 0 && items[i][j].num == 0)
-            {
-                minGo = min(minGo, (int)items[i][j].cd.size());
-            }
+            grid = std::move(copyGrid);
+            return true;
         }
     }
 
-    std::cout << "---- PREDICTION via " << minGo << " ----" << std::endl;
-    return predictGrid(grid, items, loop, minGo);
+    return false;
 }
 
 int main()
 {
-    CONSOLE_SCREEN_BUFFER_INFO coninfo;
-    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &coninfo);
-    coninfo.dwSize.Y = 2000;
-    SetConsoleScreenBufferSize(GetStdHandle(STD_OUTPUT_HANDLE), coninfo.dwSize);
-
     std::ifstream ifs("p096_sudoku.txt");
     if (!ifs.good())
     {
@@ -394,7 +346,7 @@ int main()
     }
 
     int id, sum = 0;
-    std::vector<int> failed = { };
+    std::vector<int> failed;// = { 4728 , 4738 };
     for (id = 1; ifs.good(); id++)
     {
         std::string title = "Sudoku #" + std::to_string(id);
@@ -403,7 +355,7 @@ int main()
         auto grid = readGrid(ifs);
         auto items = buildItems(grid);
 
-        if (std::find(failed.begin() , failed.end(), id) != failed.end())
+        if (std::find(failed.begin(), failed.end(), id) != failed.end())
         {
             continue;
         }
@@ -418,10 +370,8 @@ int main()
         std::cout << "-- Finish Process Grid - #" << id << " ---" << std::endl << std::endl;
     }
 
-    std::cout << "|-------------------|" << std::endl;
-    std::cout << "| Score = (" << id - 1 - failed.size() << " / " << id - 1 << ") |" << std::endl;
-    std::cout << "|-------------------|" << std::endl;
-    std::cout << "Sum = " << sum << std::endl;
+    std::cout << "Score = (" << id - 1 - failed.size() << " / " << id - 1 << ")" << std::endl;
+    std::cout << "Sum = " << sum << std::endl << std::endl;
     
     return 0;
 }
