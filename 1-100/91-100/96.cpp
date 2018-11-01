@@ -275,29 +275,31 @@ bool processGrid(std::vector<std::vector<int>>& grid, std::vector<std::vector<it
     {
         for (int j = 0; j < GRID_SIZE; j++)
         {
-            if (grid[i][j] == 0)
+            if (grid[i][j] != 0)
             {
-                int size = (int)items[i][j].cd.size();
+                continue;
+            }
 
-                if (size == 0)
-                {
-                    return false;
-                }
-                else if (size == 1)
-                {
-                    grid[i][j] = items[i][j].cd[0];
-                    items[i][j].num = items[i][j].cd[0];
+            int size = (int)items[i][j].cd.size();
 
-                    total++;
-                    items[i][j].cd.clear();
-                }
-                else
+            if (size == 0)
+            {
+                return false;
+            }
+            else if (size == 1)
+            {
+                grid[i][j] = items[i][j].cd[0];
+                items[i][j].num = items[i][j].cd[0];
+            
+                total++;
+                items[i][j].cd.clear();
+            }
+            else
+            {
+                if (size < minGo)
                 {
-                    if (size < minGo)
-                    {
-                        minGo = size;
-                        iGo = i; jGo = j;
-                    }
+                    minGo = size;
+                    iGo = i; jGo = j;
                 }
             }
         }
@@ -346,7 +348,7 @@ int main()
     }
 
     int id, sum = 0;
-    std::vector<int> failed;// = { 4728 , 4738 };
+    std::vector<int> failed;
     for (id = 1; ifs.good(); id++)
     {
         std::string title = "Sudoku #" + std::to_string(id);
@@ -354,11 +356,6 @@ int main()
 
         auto grid = readGrid(ifs);
         auto items = buildItems(grid);
-
-        if (std::find(failed.begin(), failed.end(), id) != failed.end())
-        {
-            continue;
-        }
 
         std::cout << "--- Start Process Grid - #" << id << " ---" << std::endl;
         if (!processGrid(grid, items, 1))
